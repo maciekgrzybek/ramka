@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* change the crop area to circle */
+.cropper-view-box,
+.cropper-face {
+  border-radius: 9999px;
+}
