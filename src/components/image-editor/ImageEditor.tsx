@@ -4,18 +4,16 @@ import { Cropper } from './components/cropper/Cropper';
 
 import { Frames } from './components/frames/Frames';
 
-import { useFrameCreation } from './hooks/useFrameCreation';
 import { saveToFile } from './utils/saveToFile';
+import { useState } from 'react';
+import { ColourForm } from './components/colour-form/ColourForm';
+import { HexColour } from './types';
 
 export const ImageEditor = () => {
   const { readFile, imageData } = useUploadedImage();
-  const {
-    originalCroppedImageData,
-    setOriginalCroppedImageData,
-    framesRefs,
-    createReadyImage,
-    readyImageData,
-  } = useFrameCreation();
+  const [originalCroppedImageData, setOriginalCroppedImageData] =
+    useState<HTMLCanvasElement>();
+  const [colours, setColours] = useState<HexColour[]>(['#e66465', '#f6b73c']);
 
   return (
     <div>
@@ -26,18 +24,21 @@ export const ImageEditor = () => {
         />
       )}
       {originalCroppedImageData && (
-        <Frames
-          refs={framesRefs}
-          croppedImageData={originalCroppedImageData}
-          onFrameSelect={createReadyImage}
-        />
+        <>
+          <Frames
+            croppedImageData={originalCroppedImageData}
+            colours={colours}
+          />
+          <ColourForm colours={colours} setColours={setColours} />
+        </>
       )}
-      {readyImageData && (
+
+      {/* {readyImageData && (
         <>
           <img src={readyImageData} alt="Cropped image" />
           <button onClick={() => saveToFile(readyImageData)}>Save image</button>
         </>
-      )}
+      )} */}
       <Dropzone handleDrop={readFile} />
     </div>
   );

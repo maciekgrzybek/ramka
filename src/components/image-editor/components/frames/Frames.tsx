@@ -1,63 +1,68 @@
-import freelanceWebDeveloper from '@frames/freelance-web-developer.png';
-import iLoveMondays from '@frames/i-love-mondays.png';
-import iLoveMyJob from '@frames/i-love-my-job.png';
-import marketingExpert from '@frames/marketing-expert.png';
-import marketingQueen from '@frames/marketing-queen.png';
-import pleaseHireMe from '@frames/please-hire-me.png';
-import stopMessagingMe from '@frames/stop-messaging-me.png';
+import {
+  getGradientCanvas,
+  getRoundedCanvas,
+} from '../../utils/getRoundedCanvas';
 
-import { getRoundedCanvas } from '../../utils/getRoundedCanvas';
-
-import type { ImageFrame } from '../../types';
-import { RefObject } from 'react';
-
-type FrameConfig = {
-  imageData: StaticImageData;
-};
-
-const framesList: Record<ImageFrame, FrameConfig> = {
-  'freelance-web-developer': {
-    imageData: freelanceWebDeveloper,
-  },
-  'i-love-mondays': {
-    imageData: iLoveMondays,
-  },
-  'i-love-my-job': {
-    imageData: iLoveMyJob,
-  },
-  'marketing-expert': {
-    imageData: marketingExpert,
-  },
-  'marketing-queen': {
-    imageData: marketingQueen,
-  },
-  'please-hire-me': {
-    imageData: pleaseHireMe,
-  },
-  'stop-messaging-me': {
-    imageData: stopMessagingMe,
-  },
-};
+import { useMemo, useState } from 'react';
+import { HexColour } from '../../types';
 
 type Props = {
   croppedImageData: HTMLCanvasElement;
-  refs: Record<ImageFrame, RefObject<HTMLImageElement>>;
-  onFrameSelect: (frame: ImageFrame) => void;
+  colours: HexColour[];
 };
 
-export const Frames = ({ croppedImageData, refs, onFrameSelect }: Props) => {
-  const canvasSrc = getRoundedCanvas(croppedImageData)?.toDataURL();
+export const Frames = ({ croppedImageData, colours }: Props) => {
+  const canvasSrc = useMemo(
+    () => getRoundedCanvas(croppedImageData)?.toDataURL(),
+    [croppedImageData]
+  );
+  const gradientSrc = useMemo(
+    () => getGradientCanvas(colours)?.toDataURL(),
+    [croppedImageData, colours]
+  );
+
+  const [text, setText] = useState('# not looking for job');
 
   return (
     <div className="flex flex-wrap">
-      <div className="relative w-52 mr-4">
-        {/* <img
-              ref={refs[typedName]}
-              src={image.imageData.src}
-              alt="siema"
-              className="absolute inset-0 w-full z-10"
-            /> */}
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        type="text"
+      />
+
+      <div className="relative w-80 rounded-full overflow-hidden">
+        <div className="absolute w-full h-full flex items-end z-20 tracking-widest">
+          <svg
+            viewBox="0 0 380 380"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlSpace="preserve"
+            width="100%"
+            height="100%"
+          >
+            <path
+              d="M14.987 84.644A150.001 150.001 0 0 0 0 150c0 82.787 67.213 150 150 150 45.542 0 88.618-20.69 117.085-56.239"
+              fill="none"
+              id="curve"
+              transform="translate(40 40)"
+            />
+            <text startOffset="50%">
+              <textPath
+                alignmentBaseline="middle"
+                xlinkHref="#curve"
+                fontSize="2rem"
+                startOffset="50%"
+                textAnchor="middle"
+              >
+                {text}
+              </textPath>
+            </text>
+          </svg>
+        </div>
+
         <img src={canvasSrc} alt="siema" className="w-full -z-10" />
+        <img src={gradientSrc} alt="siema" className="absolute z-10 top-0" />
+
         {/* <button onClick={() => onFrameSelect(typedName)}>Select this</button> */}
       </div>
     </div>

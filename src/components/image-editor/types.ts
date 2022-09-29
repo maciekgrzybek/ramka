@@ -1,3 +1,1 @@
-import { imageFrames } from './const';
-
-export type ImageFrame = typeof imageFrames[number];
+export type HexColour = `#${string}`;
