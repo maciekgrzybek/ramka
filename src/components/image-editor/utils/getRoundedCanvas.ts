@@ -1,4 +1,12 @@
-import { HexColour } from '../types';
+import { HexColour, RgbColour } from '../types';
+
+type AddColoursToGradientArguments = {
+  endingPoint: number;
+  startingPoint: number;
+  stepColours: string[];
+  gradient: CanvasGradient;
+  reversed?: boolean;
+};
 
 export const getRoundedCanvas = (sourceCanvas: HTMLCanvasElement) => {
   const canvas = document.createElement('canvas');
@@ -26,26 +34,40 @@ export const getRoundedCanvas = (sourceCanvas: HTMLCanvasElement) => {
   return canvas;
 };
 
-const hexToRgb = (hex: HexColour) => {
+const hexToRgb = (hex: HexColour): RgbColour => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) throw new Error('You need to pass an actual hex colour');
+  if (!result) throw new Error('You need to pass a valid hex colour');
 
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
+  return {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  };
 };
 
-const parseToRgba = (hex: HexColour) => {
-  const rgb = hexToRgb(hex);
+const rgbaToRgba = ({ r, g, b, opacity }: RgbColour & { opacity: number }) =>
+  `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
-  if (!rgb) return 'something';
+const getGradientStepColours = (hex: HexColour) =>
+  new Array(15)
+    .fill(null)
+    .map((_, i) => rgbaToRgba({ ...hexToRgb(hex), opacity: i / 10 }));
 
-  const { r, g, b } = rgb;
-  return `rgba(${r}, ${g}, ${b}, 1)`;
+const addColoursToGradient = ({
+  endingPoint,
+  startingPoint,
+  stepColours,
+  gradient,
+  reversed,
+}: AddColoursToGradientArguments) => {
+  const positionFactor = (endingPoint - startingPoint) / stepColours.length;
+  const colours = !reversed ? stepColours : [...stepColours].reverse();
+
+  colours.forEach((colourInRgba, i) => {
+    const position = startingPoint + i * positionFactor;
+
+    gradient.addColorStop(position, colourInRgba);
+  });
 };
 
 export const getGradientCanvas = (colours: HexColour[]) => {
@@ -62,12 +84,21 @@ export const getGradientCanvas = (colours: HexColour[]) => {
     height / 2,
     width / 2
   );
-  gradient.addColorStop(0, 'transparent');
-  // gradient.addColorStop(0.3, 'rgb(255,0,0, 0.05)');
-  gradient.addColorStop(0.35, parseToRgba(colours[0]));
-  gradient.addColorStop(0.55, parseToRgba(colours[1]));
-  // gradient.addColorStop(0.6, 'rgb(255,0,150, 0.05)');
-  gradient.addColorStop(1, 'transparent');
+
+  addColoursToGradient({
+    endingPoint: 0.4,
+    startingPoint: 0.2,
+    stepColours: getGradientStepColours(colours[0]),
+    gradient,
+  });
+
+  addColoursToGradient({
+    endingPoint: 0.77,
+    startingPoint: 0.55,
+    stepColours: getGradientStepColours(colours[1]),
+    gradient,
+    reversed: true,
+  });
 
   // Create a polyline path
   // Note: Nothing visually appears during this process
@@ -83,8 +114,8 @@ export const getGradientCanvas = (colours: HexColour[]) => {
     width / 2,
     height / 2,
     Math.min(width, height) / 2 - lineWidth / 2,
-    Math.PI * 1.1,
-    Math.PI / 3,
+    Math.PI * 1.8,
+    Math.PI / 11,
     true
   );
 

@@ -41,7 +41,7 @@ export const Frames = ({ croppedImageData, colours }: Props) => {
             height="100%"
           >
             <path
-              d="M14.987 84.644A150.001 150.001 0 0 0 0 150c0 82.787 67.213 150 150 150 45.542 0 88.618-20.69 117.085-56.239"
+              d="M150 0C67.157 0 0 67.157 0 150c0 82.787 67.213 150 150 150 82.843 0 150-67.157 150-150"
               fill="none"
               id="curve"
               transform="translate(40 40)"
