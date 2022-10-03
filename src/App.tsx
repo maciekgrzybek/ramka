@@ -1,10 +1,11 @@
 import { ImageEditor } from './components/image-editor/ImageEditor';
+import { StoreProvider } from './store.context';
 
 function App() {
   return (
-    <div className="text-red-200">
+    <StoreProvider>
       <ImageEditor />
-    </div>
+    </StoreProvider>
   );
 }
 

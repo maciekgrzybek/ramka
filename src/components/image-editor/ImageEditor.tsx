@@ -8,12 +8,13 @@ import { saveToFile } from './utils/saveToFile';
 import { useState } from 'react';
 import { ColourForm } from './components/colour-form/ColourForm';
 import { HexColour } from './types';
+import { useStore } from '../../store.context';
 
 export const ImageEditor = () => {
   const { readFile, imageData } = useUploadedImage();
+
   const [originalCroppedImageData, setOriginalCroppedImageData] =
     useState<HTMLCanvasElement>();
-  const [colours, setColours] = useState<HexColour[]>(['#e66465', '#f6b73c']);
 
   return (
     <div>
@@ -25,11 +26,8 @@ export const ImageEditor = () => {
       )}
       {originalCroppedImageData && (
         <>
-          <Frames
-            croppedImageData={originalCroppedImageData}
-            colours={colours}
-          />
-          <ColourForm colours={colours} setColours={setColours} />
+          <Frames croppedImageData={originalCroppedImageData} />
+          <ColourForm />
         </>
       )}
 

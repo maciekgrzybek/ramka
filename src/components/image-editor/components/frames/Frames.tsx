@@ -7,33 +7,32 @@ import { useMemo, useState } from 'react';
 import { HexColour } from '../../types';
 import { exportAsImage } from '../../utils/saveToFile';
 import { useSaveToFile } from '../../hooks/useSaveToFile';
+import { useStore } from '../../../../store.context';
 
 export default exportAsImage;
 
 type Props = {
   croppedImageData: HTMLCanvasElement;
-  colours: HexColour[];
 };
 
-export const Frames = ({ croppedImageData, colours }: Props) => {
+export const Frames = ({ croppedImageData }: Props) => {
+  const { state, changeText } = useStore();
   const canvasSrc = useMemo(
     () => getRoundedCanvas(croppedImageData)?.toDataURL(),
     [croppedImageData]
   );
   const gradientSrc = useMemo(
-    () => getGradientCanvas(colours)?.toDataURL(),
-    [croppedImageData, colours]
+    () => getGradientCanvas(state.colours)?.toDataURL(),
+    [croppedImageData, state.colours]
   );
-
-  const [text, setText] = useState('# not looking for job');
 
   const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile();
 
   return (
     <div className="flex flex-wrap">
       <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={state.text}
+        onChange={(e) => changeText(e.target.value)}
         type="text"
       />
 
@@ -64,7 +63,7 @@ export const Frames = ({ croppedImageData, colours }: Props) => {
                 startOffset="50%"
                 textAnchor="middle"
               >
-                {text}
+                {state.text}
               </textPath>
             </text>
           </svg>
