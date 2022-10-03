@@ -45,13 +45,13 @@ const hexToRgb = (hex: HexColour): RgbColour => {
   };
 };
 
-const rgbaToRgba = ({ r, g, b, opacity }: RgbColour & { opacity: number }) =>
+const rgbToRgba = ({ r, g, b, opacity }: RgbColour & { opacity: number }) =>
   `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
 const getGradientStepColours = (hex: HexColour) =>
   new Array(15)
     .fill(null)
-    .map((_, i) => rgbaToRgba({ ...hexToRgb(hex), opacity: i / 10 }));
+    .map((_, i) => rgbToRgba({ ...hexToRgb(hex), opacity: i / 10 }));
 
 const addColoursToGradient = ({
   endingPoint,

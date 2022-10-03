@@ -5,6 +5,10 @@ import {
 
 import { useMemo, useState } from 'react';
 import { HexColour } from '../../types';
+import { exportAsImage } from '../../utils/saveToFile';
+import { useSaveToFile } from '../../hooks/useSaveToFile';
+
+export default exportAsImage;
 
 type Props = {
   croppedImageData: HTMLCanvasElement;
@@ -23,6 +27,8 @@ export const Frames = ({ croppedImageData, colours }: Props) => {
 
   const [text, setText] = useState('# not looking for job');
 
+  const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile();
+
   return (
     <div className="flex flex-wrap">
       <input
@@ -31,7 +37,11 @@ export const Frames = ({ croppedImageData, colours }: Props) => {
         type="text"
       />
 
-      <div className="relative w-80 rounded-full overflow-hidden">
+      {canDownloadImage && <button onClick={downloadImage}>dawaj</button>}
+      <div
+        className="relative w-80 rounded-full overflow-hidden"
+        ref={canvasRef}
+      >
         <div className="absolute w-full h-full flex items-end z-20 tracking-widest">
           <svg
             viewBox="0 0 380 380"
@@ -62,8 +72,6 @@ export const Frames = ({ croppedImageData, colours }: Props) => {
 
         <img src={canvasSrc} alt="siema" className="w-full -z-10" />
         <img src={gradientSrc} alt="siema" className="absolute z-10 top-0" />
-
-        {/* <button onClick={() => onFrameSelect(typedName)}>Select this</button> */}
       </div>
     </div>
   );
