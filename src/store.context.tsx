@@ -31,7 +31,7 @@ type StoreState = {
 };
 
 const initialState: StoreState = {
-  text: '',
+  text: '#looking for job',
   textColour: '#000',
   colours: ['#e66465', '#f6b73c'],
 };

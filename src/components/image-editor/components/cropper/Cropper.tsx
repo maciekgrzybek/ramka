@@ -25,7 +25,7 @@ export const Cropper = ({ imageData, setCroppedImageData }: Props) => {
       src={imageData}
       initialAspectRatio={1}
       aspectRatio={1}
-      style={{ height: 600, width: '100%' }}
+      style={{ height: 300, width: '100%' }}
       guides={false}
       ref={cropperRef}
       viewMode={1}

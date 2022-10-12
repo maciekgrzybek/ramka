@@ -29,14 +29,15 @@ export const Frames = ({ croppedImageData }: Props) => {
   const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile();
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap items-center flex-col">
       <input
         value={state.text}
+        className="border-2 border-solid"
         onChange={(e) => changeText(e.target.value)}
         type="text"
       />
 
-      {canDownloadImage && <button onClick={downloadImage}>dawaj</button>}
+      {canDownloadImage && <button onClick={downloadImage}>Save image</button>}
       <div
         className="relative w-80 rounded-full overflow-hidden"
         ref={canvasRef}
