@@ -4,7 +4,6 @@ import { Cropper } from './components/cropper/Cropper';
 
 import { Frames } from './components/frames/Frames';
 
-import { saveToFile } from './utils/saveToFile';
 import { useState } from 'react';
 import { ColourForm } from './components/colour-form/ColourForm';
 import { HexColour } from './types';
