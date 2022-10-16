@@ -8,12 +8,19 @@ import { useState } from 'react';
 import { ColourForm } from './components/colour-form/colour-form';
 
 import { TextForm } from './components/text-form/text-form';
+import { useAnalyticsAction } from '../../use-analytics';
 
 export const ImageEditor = () => {
   const { readFile, imageData } = useUploadedImage();
+  const trackEvent = useAnalyticsAction('image');
 
   const [originalCroppedImageData, setOriginalCroppedImageData] =
     useState<HTMLCanvasElement>();
+
+  const handleDrop = (file: Blob) => {
+    trackEvent('drag_image');
+    readFile(file);
+  };
 
   return (
     <div>
@@ -31,7 +38,7 @@ export const ImageEditor = () => {
         </>
       )}
 
-      <Dropzone handleDrop={readFile} />
+      <Dropzone handleDrop={handleDrop} />
     </div>
   );
 };
