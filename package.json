@@ -14,7 +14,6 @@
     "react-cropper": "^2.1.8",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
-    "rooks": "^7.4.0",
     "vite-plugin-svgr": "^2.2.1"
   },
   "devDependencies": {

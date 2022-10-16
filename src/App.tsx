@@ -1,5 +1,5 @@
 import { Header } from './components/header/header';
-import { ImageEditor } from './components/image-editor/ImageEditor';
+import { ImageEditor } from './components/image-editor/image-editor';
 import { Layout } from './components/layout/layout';
 import { StoreProvider } from './store.context';
 

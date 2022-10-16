@@ -100,8 +100,6 @@ export const getGradientCanvas = (colours: HexColour[]) => {
     reversed: true,
   });
 
-  // Create a polyline path
-  // Note: Nothing visually appears during this process
   canvas.width = width;
   canvas.height = height;
   context.lineCap = 'butt';
@@ -119,12 +117,8 @@ export const getGradientCanvas = (colours: HexColour[]) => {
     true
   );
 
-  // Set the stroke style to be the gradient
-  // Note: Nothing visually appears during this process
   context.strokeStyle = gradient;
 
-  // stroke the path
-  // FINALLY! The gradient-stroked path is visible on the canvas
   context.stroke();
 
   return canvas;

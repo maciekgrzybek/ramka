@@ -1,12 +1,9 @@
-import {
-  getGradientCanvas,
-  getRoundedCanvas,
-} from '../../utils/getRoundedCanvas';
+import { getGradientCanvas, getRoundedCanvas } from '../../utils/canvas-utils';
 
 import { useMemo, useState } from 'react';
 import { HexColour } from '../../types';
-import { exportAsImage } from '../../utils/saveToFile';
-import { useSaveToFile } from '../../hooks/useSaveToFile';
+import { exportAsImage } from '../../utils/save-to-file';
+import { useSaveToFile } from '../../hooks/use-save-to-file';
 import { useStore } from '../../../../store.context';
 
 export default exportAsImage;
@@ -15,28 +12,24 @@ type Props = {
   croppedImageData: HTMLCanvasElement;
 };
 
-export const Frames = ({ croppedImageData }: Props) => {
-  const { state, changeText } = useStore();
+export const Preview = ({ croppedImageData }: Props) => {
+  const {
+    state: { colours, text, textColour },
+  } = useStore();
+
   const canvasSrc = useMemo(
     () => getRoundedCanvas(croppedImageData)?.toDataURL(),
     [croppedImageData]
   );
   const gradientSrc = useMemo(
-    () => getGradientCanvas(state.colours)?.toDataURL(),
-    [croppedImageData, state.colours]
+    () => getGradientCanvas(colours)?.toDataURL(),
+    [croppedImageData, colours]
   );
 
   const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile();
 
   return (
     <div className="flex flex-wrap items-center flex-col">
-      <input
-        value={state.text}
-        className="border-2 border-solid"
-        onChange={(e) => changeText(e.target.value)}
-        type="text"
-      />
-
       {canDownloadImage && <button onClick={downloadImage}>Save image</button>}
       <div
         className="relative w-80 rounded-full overflow-hidden"
@@ -63,8 +56,9 @@ export const Frames = ({ croppedImageData }: Props) => {
                 fontSize="2rem"
                 startOffset="50%"
                 textAnchor="middle"
+                fill={textColour}
               >
-                {state.text}
+                {text}
               </textPath>
             </text>
           </svg>

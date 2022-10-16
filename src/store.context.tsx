@@ -46,7 +46,7 @@ const mainReducer = (state: StoreState, action: Action): StoreState => {
     case 'CHANGE_TEXT_COLOUR':
       return {
         ...state,
-        text: action.data.colour,
+        textColour: action.data.colour,
       };
     case 'CHANGE_COLOURS':
       return {
@@ -73,10 +73,7 @@ const useStore = () => {
       dispatch({ type: 'CHANGE_TEXT', data: { text } }),
     changeTextColour: (colour: HexColour) =>
       dispatch({ type: 'CHANGE_TEXT_COLOUR', data: { colour } }),
-    updateColour: (newColour: HexColour, index: number) => {
-      const newColours = state.colours.map((prevColour, i) =>
-        i === index ? newColour : prevColour
-      );
+    updateColour: (newColours: HexColour[]) => {
       return dispatch({
         type: 'CHANGE_COLOURS',
         data: { colours: newColours },
