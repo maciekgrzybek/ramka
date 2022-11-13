@@ -23,7 +23,7 @@ export const ImageEditor = () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       {imageData && (
         <Cropper
           imageData={imageData}

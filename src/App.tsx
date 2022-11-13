@@ -16,6 +16,12 @@ function App() {
       <Layout>
         <>
           <Header />
+          <div className="text-center mb-10">
+            <h1 className="text-2xl text-blue-500 mb-1">
+              Welcome to <span className="font-bold">Fream</span>
+            </h1>
+            <p>Create your awesome, image frame.</p>
+          </div>
           <ImageEditor />
         </>
       </Layout>
