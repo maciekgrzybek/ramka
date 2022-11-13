@@ -1,6 +1,7 @@
 import { HexColour } from '../../../../types';
 import { debounce } from 'lodash';
 import { useStore } from '../../../../store/store.context';
+import { ColourInput } from '../../../colour-input/colour-input';
 
 export const ColourForm = () => {
   const { state, updateColour } = useStore();
@@ -15,23 +16,24 @@ export const ColourForm = () => {
   const debouncedUpdate = debounce(handleUpdate, 300);
 
   return (
-    <>
-      {state.colours.map((colour, index) => {
-        return (
-          <div key={index}>
-            <input
-              type="color"
-              id="first-colour"
-              name="First colour"
-              value={colour}
-              onChange={(e) =>
-                debouncedUpdate(e.target.value as HexColour, index)
-              }
-            />
-            <label htmlFor="first-colour">Select First Colour</label>
-          </div>
-        );
-      })}
-    </>
+    <fieldset>
+      <legend className="mb-1 block text-base font-small text-gray-600">
+        Gradient colors
+      </legend>
+      <div className="flex">
+        {state.colours.map((colour, index) => {
+          return (
+            <div key={index} className="relative w-10 h-10">
+              <ColourInput
+                colour={colour}
+                handleChange={(e) =>
+                  debouncedUpdate(e.target.value as HexColour, index)
+                }
+              />
+            </div>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 };

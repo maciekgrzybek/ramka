@@ -10,35 +10,31 @@ import { ColourForm } from './components/colour-form/colour-form';
 import { TextForm } from './components/text-form/text-form';
 import { useAnalyticsAction } from '../../use-analytics';
 
-export const ImageEditor = () => {
-  const { readFile, imageData } = useUploadedImage();
-  const trackEvent = useAnalyticsAction('image');
+type Props = {
+  imageData: string | null;
+};
 
+export const ImageEditor = ({ imageData }: Props) => {
   const [originalCroppedImageData, setOriginalCroppedImageData] =
     useState<HTMLCanvasElement>();
 
-  const handleDrop = (file: Blob) => {
-    trackEvent('drag_image');
-    readFile(file);
-  };
-
   return (
-    <div className="px-4">
+    <div>
       {imageData && (
-        <Cropper
-          imageData={imageData}
-          setCroppedImageData={setOriginalCroppedImageData}
-        />
+        <div className="rounded-xl overflow-hidden mb-6">
+          <Cropper
+            imageData={imageData}
+            setCroppedImageData={setOriginalCroppedImageData}
+          />
+        </div>
       )}
       {originalCroppedImageData && (
-        <>
+        <div className="flex flex-col gap-y-5">
           <TextForm />
-          <Preview croppedImageData={originalCroppedImageData} />
           <ColourForm />
-        </>
+          <Preview croppedImageData={originalCroppedImageData} />
+        </div>
       )}
-
-      <Dropzone handleDrop={handleDrop} />
     </div>
   );
 };

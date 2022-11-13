@@ -91,14 +91,14 @@ export const getGradientCanvas = (colours: HexColour[]) => {
   addColoursToGradient({
     endingPoint: 0.4,
     startingPoint: 0.2,
-    stepColours: getGradientStepColours(colours[0]),
+    stepColours: getGradientStepColours(colours[1]),
     gradient,
   });
 
   addColoursToGradient({
     endingPoint: 0.77,
     startingPoint: 0.55,
-    stepColours: getGradientStepColours(colours[1]),
+    stepColours: getGradientStepColours(colours[0]),
     gradient,
     reversed: true,
   });
