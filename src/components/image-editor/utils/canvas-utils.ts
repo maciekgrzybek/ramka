@@ -1,4 +1,5 @@
-import { HexColour, RgbColour } from '../types';
+import { HexColour, RgbaColour } from '../../../types';
+import { hexToRgb, rgbToRgba } from './colour-utils';
 
 type AddColoursToGradientArguments = {
   endingPoint: number;
@@ -8,6 +9,10 @@ type AddColoursToGradientArguments = {
   reversed?: boolean;
 };
 
+/**
+ * Modifies canvas data coming from the cropper tool to a rounded canvas
+ * @function
+ */
 export const getRoundedCanvas = (sourceCanvas: HTMLCanvasElement) => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -34,25 +39,19 @@ export const getRoundedCanvas = (sourceCanvas: HTMLCanvasElement) => {
   return canvas;
 };
 
-const hexToRgb = (hex: HexColour): RgbColour => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) throw new Error('You need to pass a valid hex colour');
-
-  return {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
-  };
-};
-
-const rgbToRgba = ({ r, g, b, opacity }: RgbColour & { opacity: number }) =>
-  `rgba(${r}, ${g}, ${b}, ${opacity})`;
-
-const getGradientStepColours = (hex: HexColour) =>
+/**
+ * Generates an array of RGBA colours to create a gradient
+ * @function
+ */
+const getGradientStepColours = (hex: HexColour): RgbaColour[] =>
   new Array(15)
     .fill(null)
     .map((_, i) => rgbToRgba({ ...hexToRgb(hex), opacity: i / 10 }));
 
+/**
+ * Places the gradient on the rounded canvas
+ * @function
+ */
 const addColoursToGradient = ({
   endingPoint,
   startingPoint,
@@ -70,6 +69,10 @@ const addColoursToGradient = ({
   });
 };
 
+/**
+ * Creates a canvas with the colour gradients
+ * @function
+ */
 export const getGradientCanvas = (colours: HexColour[]) => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');

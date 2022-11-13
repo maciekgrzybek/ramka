@@ -5,55 +5,14 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import { HexColour } from './components/image-editor/types';
-
-type ChangeTextAction = {
-  type: 'CHANGE_TEXT';
-  data: { text: string };
-};
-
-type ChangeTextColourAction = {
-  type: 'CHANGE_TEXT_COLOUR';
-  data: { colour: HexColour };
-};
-
-type ChangeColours = {
-  type: 'CHANGE_COLOURS';
-  data: { colours: HexColour[] };
-};
-
-type Action = ChangeTextAction | ChangeTextColourAction | ChangeColours;
-
-type StoreState = {
-  text: string;
-  textColour: HexColour;
-  colours: HexColour[];
-};
+import { HexColour } from '../types';
+import { mainReducer } from './store.reducer';
+import { Action, StoreState } from './store.types';
 
 const initialState: StoreState = {
   text: '#looking for job',
   textColour: '#000',
   colours: ['#e66465', '#f6b73c'],
-};
-
-const mainReducer = (state: StoreState, action: Action): StoreState => {
-  switch (action.type) {
-    case 'CHANGE_TEXT':
-      return {
-        ...state,
-        text: action.data.text,
-      };
-    case 'CHANGE_TEXT_COLOUR':
-      return {
-        ...state,
-        textColour: action.data.colour,
-      };
-    case 'CHANGE_COLOURS':
-      return {
-        ...state,
-        colours: action.data.colours,
-      };
-  }
 };
 
 const Store = createContext<{
@@ -85,6 +44,7 @@ const useStore = () => {
 const StoreProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
   const value = useMemo(() => ({ state, dispatch }), [state]);
+
   return <Store.Provider value={value}>{children}</Store.Provider>;
 };
 

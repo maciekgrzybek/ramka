@@ -1,6 +1,6 @@
-import { HexColour } from '../../types';
+import { HexColour } from '../../../../types';
 import { debounce } from 'lodash';
-import { useStore } from '../../../../store.context';
+import { useStore } from '../../../../store/store.context';
 
 export const ColourForm = () => {
   const { state, updateColour } = useStore();

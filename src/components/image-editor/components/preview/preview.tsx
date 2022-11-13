@@ -1,10 +1,9 @@
 import { getGradientCanvas, getRoundedCanvas } from '../../utils/canvas-utils';
 
-import { useMemo, useState } from 'react';
-import { HexColour } from '../../types';
+import { useMemo } from 'react';
 import { exportAsImage } from '../../utils/save-to-file';
 import { useSaveToFile } from '../../hooks/use-save-to-file';
-import { useStore } from '../../../../store.context';
+import { useStore } from '../../../../store/store.context';
 
 export default exportAsImage;
 
@@ -26,7 +25,7 @@ export const Preview = ({ croppedImageData }: Props) => {
     [croppedImageData, colours]
   );
 
-  const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile();
+  const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile(text);
 
   return (
     <div className="flex flex-wrap items-center flex-col">
@@ -64,8 +63,8 @@ export const Preview = ({ croppedImageData }: Props) => {
           </svg>
         </div>
 
-        <img src={canvasSrc} alt="siema" className="w-full -z-10" />
-        <img src={gradientSrc} alt="siema" className="absolute z-10 top-0" />
+        <img src={canvasSrc} className="w-full -z-10" />
+        <img src={gradientSrc} className="absolute z-10 top-0" />
       </div>
     </div>
   );

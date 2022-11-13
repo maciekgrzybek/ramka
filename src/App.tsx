@@ -1,7 +1,7 @@
 import { Header } from './components/header/header';
 import { ImageEditor } from './components/image-editor/image-editor';
 import { Layout } from './components/layout/layout';
-import { StoreProvider } from './store.context';
+import { StoreProvider } from './store/store.context';
 import ReactGA from 'react-ga';
 import { useAnalyticsPageView } from './use-analytics';
 

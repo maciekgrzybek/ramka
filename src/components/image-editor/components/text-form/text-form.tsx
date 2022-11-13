@@ -1,5 +1,5 @@
-import { useStore } from '../../../../store.context';
-import { HexColour } from '../../types';
+import { useStore } from '../../../../store/store.context';
+import { HexColour } from '../../../../types';
 
 export const TextForm = () => {
   const { state, changeText, changeTextColour } = useStore();
