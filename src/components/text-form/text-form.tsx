@@ -1,7 +1,7 @@
-import { useStore } from '../../../../store/store.context';
-import { HexColour } from '../../../../types';
-import { ColourInput } from '../../../colour-input/colour-input';
-import { TextInput } from '../../../text-input/text-input';
+import { useStore } from '../../store/store.context';
+import { HexColour } from '../../types';
+import { ColourInput } from '../colour-input/colour-input';
+import { TextInput } from '../text-input/text-input';
 
 export const TextForm = () => {
   const { state, changeText, changeTextColour } = useStore();

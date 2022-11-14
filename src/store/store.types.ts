@@ -15,7 +15,16 @@ export type ChangeColours = {
   data: { colours: HexColour[] };
 };
 
-export type Action = ChangeTextAction | ChangeTextColourAction | ChangeColours;
+export type ChangePreset = {
+  type: 'CHANGE_PRESET';
+  data: { text: string; colours: HexColour[] };
+};
+
+export type Action =
+  | ChangeTextAction
+  | ChangeTextColourAction
+  | ChangeColours
+  | ChangePreset;
 
 export type StoreState = {
   text: string;

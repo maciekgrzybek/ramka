@@ -1,4 +1,4 @@
-import { HexColour, RgbaColour } from '../../../types';
+import { HexColour, RgbaColour } from '../types';
 import { hexToRgb, rgbToRgba } from './colour-utils';
 
 type AddColoursToGradientArguments = {

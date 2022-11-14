@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { Button } from '../../../button/button';
+import { Button } from '../button/button';
 
 type Props = {
   handleDrop: (file: Blob) => void;
@@ -12,7 +12,6 @@ export const Dropzone = ({ handleDrop, hasFile }: Props) => {
   const [error, setError] = useState<Error | null>(null);
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      console.log({ acceptedFiles });
       handleDrop(acceptedFiles[0]);
       clearError();
     },
@@ -39,7 +38,9 @@ export const Dropzone = ({ handleDrop, hasFile }: Props) => {
       <input {...getInputProps()} />
 
       {hasFile ? (
-        <Button variant="secondary">Try different image</Button>
+        <Button variant="secondary" fullWidth>
+          Try different image
+        </Button>
       ) : (
         <div className="border-dashed border-2 rounded-2xl flex justify-center items-center bg-blue-50 flex-col w-full h-72">
           <AiOutlineCloudUpload className="w-10 h-10 mb-4" />

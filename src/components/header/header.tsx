@@ -3,7 +3,7 @@ import { AiFillGithub, AiOutlineUser } from 'react-icons/ai';
 
 export const Header = () => {
   return (
-    <header className="flex items-baseline justify-between pb-5 border-b border-gray-100 p-4 mb-10">
+    <header className="flex items-baseline justify-between pb-5 border-b border-gray-100 p-4 mb-10 lg:mb-0">
       <div>
         <Logo width={120} />
       </div>

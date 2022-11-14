@@ -1,11 +1,9 @@
 import { getGradientCanvas, getRoundedCanvas } from '../../utils/canvas-utils';
 
 import { useMemo } from 'react';
-import { exportAsImage } from '../../utils/save-to-file';
 import { useSaveToFile } from '../../hooks/use-save-to-file';
-import { useStore } from '../../../../store/store.context';
-
-export default exportAsImage;
+import { useStore } from '../../store/store.context';
+import { Button } from '../button/button';
 
 type Props = {
   croppedImageData: HTMLCanvasElement;
@@ -25,13 +23,12 @@ export const Preview = ({ croppedImageData }: Props) => {
     [croppedImageData, colours]
   );
 
-  const { canvasRef, canDownloadImage, downloadImage } = useSaveToFile(text);
+  const { canvasRef, downloadImage } = useSaveToFile(text);
 
   return (
-    <div className="flex flex-wrap items-center flex-col">
-      {canDownloadImage && <button onClick={downloadImage}>Save image</button>}
+    <div className="flex flex-wrap items-center flex-col w-full max-w-[350px] mx-auto lg:h-full ">
       <div
-        className="relative w-80 rounded-full overflow-hidden"
+        className="relative w-full max-w-[350px] rounded-full overflow-hidden mb-6 lg:mb-10"
         ref={canvasRef}
       >
         <div className="absolute w-full h-full flex items-end z-20 tracking-widest">
@@ -66,6 +63,9 @@ export const Preview = ({ croppedImageData }: Props) => {
         <img src={canvasSrc} className="w-full -z-10" />
         <img src={gradientSrc} className="absolute z-10 top-0" />
       </div>
+      <Button onClick={downloadImage} fullWidth>
+        Save image
+      </Button>
     </div>
   );
 };

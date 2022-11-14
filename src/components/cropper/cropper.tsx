@@ -21,15 +21,17 @@ export const Cropper = ({ imageData, setCroppedImageData }: Props) => {
   };
 
   return (
-    <ReactCropper
-      src={imageData}
-      initialAspectRatio={1}
-      aspectRatio={1}
-      style={{ height: 300, width: '100%' }}
-      guides={false}
-      ref={cropperRef}
-      viewMode={1}
-      crop={debounce(onCrop, 300)}
-    />
+    <div className="rounded-xl overflow-hidden">
+      <ReactCropper
+        src={imageData}
+        initialAspectRatio={1}
+        aspectRatio={1}
+        style={{ height: 300, width: '100%' }}
+        guides={false}
+        ref={cropperRef}
+        viewMode={1}
+        crop={debounce(onCrop, 300)}
+      />
+    </div>
   );
 };

@@ -1,4 +1,4 @@
-import { HexColour, RgbaColour, RgbColour } from '../../../types';
+import { HexColour, RgbaColour, RgbColour } from '../types';
 
 /**
  * Changes hex to RGB

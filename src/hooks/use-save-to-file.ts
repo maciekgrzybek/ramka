@@ -10,5 +10,5 @@ export const useSaveToFile = (filename: string) => {
     }
   };
 
-  return { downloadImage, canDownloadImage: !!canvasRef.current, canvasRef };
+  return { downloadImage, canvasRef };
 };

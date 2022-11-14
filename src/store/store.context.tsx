@@ -38,6 +38,12 @@ const useStore = () => {
         data: { colours: newColours },
       });
     },
+    setPreset: (newColours: HexColour[], text: string) => {
+      return dispatch({
+        type: 'CHANGE_PRESET',
+        data: { colours: newColours, text },
+      });
+    },
   };
 };
 

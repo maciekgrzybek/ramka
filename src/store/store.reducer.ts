@@ -17,5 +17,11 @@ export const mainReducer = (state: StoreState, action: Action): StoreState => {
         ...state,
         colours: action.data.colours,
       };
+    case 'CHANGE_PRESET':
+      return {
+        ...state,
+        colours: action.data.colours,
+        text: action.data.text,
+      };
   }
 };
