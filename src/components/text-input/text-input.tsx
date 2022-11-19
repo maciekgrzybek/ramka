@@ -16,7 +16,7 @@ export const TextInput = ({ text, label, handleChange, hideLabel }: Props) => {
       </label>
       <input
         value={text}
-        className="w-full rounded-full border border-gray-100 bg-white py-2 px-4 md:px-8 text-base font-small text-black-brand-100 outline-none focus:border-primary-brand-500 focus:shadow-md"
+        className="w-full rounded-full border border-gray-100 bg-white py-2 px-4 md:px-8 text-base font-small text-black-brand-100 outline-none focus:border-primary-brand-500 focus:shadow-md focus:text-black-brand-300"
         onChange={handleChange}
         type="text"
         id={id}
