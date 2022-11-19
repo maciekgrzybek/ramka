@@ -16,7 +16,7 @@ import clsx from 'clsx';
 const TRACKING_ID = 'G-XJ9RSN3622'; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
 
-function App() {
+export const App = () => {
   useAnalyticsPageView();
 
   const { readFile, imageData } = useUploadedImage();
@@ -127,6 +127,4 @@ function App() {
       </Layout>
     </StoreProvider>
   );
-}
-
-export default App;
+};
