@@ -7,3 +7,8 @@
 .cropper-face {
   @apply rounded-full;
 }
+
+body {
+  @apply bg-primary-brand-100;
+  @apply text-black-brand-500;
+}

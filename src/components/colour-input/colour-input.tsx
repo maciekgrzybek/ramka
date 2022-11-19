@@ -12,7 +12,7 @@ export const ColourInput = ({ colour, handleChange }: Props) => {
     <>
       <label
         htmlFor={id}
-        className={`absolute top-0 left-0 w-8 h-8 flex p-2 border-2 border-gray-400 rounded-full cursor-pointer focus:outline-none`}
+        className={`absolute top-0 left-0 w-7 h-7 flex p-2 rounded-full cursor-pointer focus:outline-none`}
         style={{ backgroundColor: colour }}
       />
       <input

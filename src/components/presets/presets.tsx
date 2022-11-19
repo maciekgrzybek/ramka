@@ -1,6 +1,7 @@
 import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
 import { Button } from '../button/button';
+import { Label } from '../label/labelt';
 
 type Preset = {
   text: string;
@@ -20,13 +21,13 @@ export const Presets = () => {
   };
   return (
     <>
-      <h2 className="mb-1 block text-base font-small text-gray-600">Presets</h2>
+      <Label>Presets</Label>
       <ul className="flex flex-col gap-y-2">
         {presets.map((preset) => (
           <li key={preset.text} className="flex items-center justify-between">
             <span className="flex items-center gap-1">
               <>
-                <span className="mr-2 text-gray-500">{preset.text}</span>
+                <span className="mr-2 text-black-brand-300">{preset.text}</span>
                 {preset.colours.map((colour) => (
                   <span
                     className="w-5 h-5 rounded-full block"

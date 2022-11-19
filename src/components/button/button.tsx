@@ -14,14 +14,15 @@ export const Button = ({
   ...rest
 }: Props) => {
   const classNames = {
-    primary: 'bg-blue-500 text-white hover:bg-blue-600',
-    secondary: 'bg-blue-100 text-blue-600 hover:bg-blue-200',
+    primary: 'bg-primary-brand-900 text-white hover:bg-primary-brand-800',
+    secondary:
+      'bg-primary-brand-500 text-primary-brand-900 hover:bg-primary-brand-200',
   };
 
   return (
     <button
       className={clsx(
-        'rounded-full py-2 px-4 ease-in duration-75',
+        'rounded-full py-2 px-4 md:px-8 ease-in duration-75',
         classNames[variant],
         { 'w-full': fullWidth }
       )}

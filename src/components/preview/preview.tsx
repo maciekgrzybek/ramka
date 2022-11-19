@@ -26,9 +26,9 @@ export const Preview = ({ croppedImageData }: Props) => {
   const { canvasRef, downloadImage } = useSaveToFile(text);
 
   return (
-    <div className="flex flex-wrap items-center flex-col w-full max-w-[350px] mx-auto lg:h-full ">
+    <div className="flex flex-wrap items-center flex-col w-full max-w-[300px] mx-auto lg:h-full">
       <div
-        className="relative w-full max-w-[350px] rounded-full overflow-hidden mb-6 lg:mb-10"
+        className="relative w-full max-w-[300px] rounded-full overflow-hidden mb-6"
         ref={canvasRef}
       >
         <div className="absolute w-full h-full flex items-end z-20 tracking-widest">

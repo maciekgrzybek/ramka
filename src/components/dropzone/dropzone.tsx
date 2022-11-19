@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
+import clsx from 'clsx';
 import { useDropzone } from 'react-dropzone';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { BsImage, BsFillCloudUploadFill } from 'react-icons/bs';
 import { Button } from '../button/button';
 
 type Props = {
@@ -42,24 +43,27 @@ export const Dropzone = ({ handleDrop, hasFile }: Props) => {
           Try different image
         </Button>
       ) : (
-        <div className="border-dashed border-2 rounded-2xl flex justify-center items-center bg-blue-50 flex-col w-full h-72">
-          <AiOutlineCloudUpload className="w-10 h-10 mb-4" />
+        <div
+          className={clsx(
+            'ease-in-out duration-200 border-dashed border-2 border-primary-brand-200 rounded-2xl flex justify-center items-center bg-primary-brand-100 flex-col w-full h-72 shadow-lg shadow-primary-brand-200',
+            { 'scale-105 shadow-2xl': isDragActive }
+          )}
+        >
+          {isDragActive ? (
+            <BsFillCloudUploadFill className="w-10 h-10 mb-4 text-primary-brand-500" />
+          ) : (
+            <BsImage className="w-10 h-10 mb-4 text-primary-brand-500" />
+          )}
 
           <span className="flex flex-col text-center text-sm">
-            {isDragActive ? (
-              'Dropping file...'
-            ) : (
-              <>
-                <span className="text-blue-500 mb-1">
-                  Drag and drop your profile picture
-                </span>
-                <span className="text-gray-500 mb-2">- or -</span>
-                <Button>Browse files</Button>
-              </>
-            )}
+            <span className="text-primary-brand-900 font-semibold mb-1">
+              Drag and drop your profile picture
+            </span>
+            <span className="text-black-brand-500 mb-2">- or -</span>
+            <Button>Browse files</Button>
           </span>
           {error && (
-            <span className="text-red-400 mt-6">
+            <span className="text-orange-800 mt-6">
               This filetype is not accepted. Use jpeg, png or webp.
             </span>
           )}

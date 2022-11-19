@@ -1,6 +1,7 @@
 import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
 import { ColourInput } from '../colour-input/colour-input';
+import { Label } from '../label/labelt';
 import { TextInput } from '../text-input/text-input';
 
 export const TextForm = () => {
@@ -8,9 +9,7 @@ export const TextForm = () => {
 
   return (
     <fieldset>
-      <legend className="mb-1 block text-base font-small text-gray-600">
-        Your frame text and color
-      </legend>
+      <Label>Your frame text and color</Label>
       <div className="flex items-center">
         <div className="mr-3 w-full">
           <TextInput

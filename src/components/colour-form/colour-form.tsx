@@ -2,6 +2,7 @@ import { HexColour } from '../../types';
 import { debounce } from 'lodash';
 import { useStore } from '../../store/store.context';
 import { ColourInput } from '../colour-input/colour-input';
+import { Label } from '../label/labelt';
 
 export const ColourForm = () => {
   const { state, updateColour } = useStore();
@@ -17,9 +18,7 @@ export const ColourForm = () => {
 
   return (
     <fieldset>
-      <legend className="mb-1 block text-base font-small text-gray-600">
-        Gradient colors
-      </legend>
+      <Label>Gradient colors</Label>
       <div className="flex">
         {state.colours.map((colour, index) => {
           return (

@@ -21,7 +21,7 @@ export const Cropper = ({ imageData, setCroppedImageData }: Props) => {
   };
 
   return (
-    <div className="rounded-xl overflow-hidden">
+    <div className="rounded overflow-hidden">
       <ReactCropper
         src={imageData}
         initialAspectRatio={1}
