@@ -61,7 +61,7 @@ export const Preview = ({ croppedImageData }: Props) => {
         </div>
 
         <img src={canvasSrc} className="w-full -z-10" />
-        <img src={gradientSrc} className="absolute z-10 top-0" />
+        <img src={gradientSrc} className="absolute z-10 top-px" />
       </div>
       <Button onClick={downloadImage} fullWidth>
         Save image
