@@ -9,8 +9,10 @@ type Preset = {
 };
 
 const presets: Preset[] = [
-  { text: 'siema wariacie', colours: ['#FFFB7D', '#0093E9'] },
-  { text: 'elo mordo', colours: ['#FF0000', '#80D0C7'] },
+  { text: 'Freelance Web Developer', colours: ['#85FFBD', '#FFFB7D'] },
+  { text: 'I HATE MONDAYS', colours: ['#0093E9', '#80D0C7'] },
+  { text: '#Not Looking For Job', colours: ['#F4D03F', '#16A085'] },
+  { text: 'Marketing Queen', colours: ['#FAD961', '#F76B1C'] },
 ];
 
 export const Presets = () => {
