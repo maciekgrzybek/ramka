@@ -5,5 +5,9 @@ type Props = {
 };
 
 export const Layout = ({ children }: Props) => {
-  return <div className="my-0 mx-auto max-w-7xl">{children}</div>;
+  return (
+    <div className="my-0 mx-auto max-w-7xl min-h-screen flex flex-col justify-between">
+      {children}
+    </div>
+  );
 };

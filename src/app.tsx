@@ -1,130 +1,107 @@
 import { Header } from './components/header/header';
 import { Layout } from './components/layout/layout';
-import { StoreProvider } from './store/store.context';
+import { StoreProvider, useStore } from './store/store.context';
 import ReactGA from 'react-ga';
 import { useAnalyticsAction, useAnalyticsPageView } from './use-analytics';
 import { Dropzone } from './components/dropzone/dropzone';
 import { useUploadedImage } from './hooks/use-uploaded-image';
 import { Presets } from './components/presets/presets';
 import { Cropper } from './components/cropper/cropper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextForm } from './components/text-form/text-form';
 import { ColourForm } from './components/colour-form/colour-form';
 import { Preview } from './components/preview/preview';
-import clsx from 'clsx';
+import { IntroText } from './components/intro-text/intro-text';
+import { useSaveToFile } from './hooks/use-save-to-file';
+import { Button } from './components/button/button';
+import { LoadingIndicator } from './components/loading-indicator/loading-indicator';
+import { Footer } from './components/footer/footer';
 
 const TRACKING_ID = 'G-XJ9RSN3622'; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
 
 export const App = () => {
   useAnalyticsPageView();
-
-  const { readFile, imageData } = useUploadedImage();
   const trackEvent = useAnalyticsAction('image');
 
+  const { state } = useStore();
+  const { readFile, imageData } = useUploadedImage();
   const [originalCroppedImageData, setOriginalCroppedImageData] =
-    useState<HTMLCanvasElement>();
+    useState<HTMLCanvasElement | null>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDrop = (file: Blob) => {
+    setOriginalCroppedImageData(null);
     trackEvent('drag_image');
     readFile(file);
+    setIsLoading(true);
   };
 
+  const { canvasRef, downloadImage } = useSaveToFile(state.text);
+
+  useEffect(() => {
+    if (originalCroppedImageData) {
+      setIsLoading(false);
+    }
+    if (!originalCroppedImageData && imageData) {
+      setIsLoading(true);
+    }
+  }, [originalCroppedImageData]);
+
   return (
-    <StoreProvider>
-      <Layout>
-        <>
+    <Layout>
+      <>
+        <div>
           <Header />
-          <div
-            className={clsx({
-              'items-center md:grid md:grid-cols-2': !originalCroppedImageData,
-            })}
-          >
+          <IntroText />
+          <div className="max-w-2xl mx-auto mb-5">
             {!imageData && (
-              <div className="mb-12 px-4 md:px-8">
-                <h1 className="text-2xl text-black-brand-500 font-black uppercase mb-1 leading-7 md:text-3xl lg:text-4xl md:mb-5">
-                  Hi, and welcome to{' '}
-                  <span className="text-primary-brand-900">Ramka</span>
-                </h1>
-                <p className="md:text-xl">
-                  Create your own, awesome image frame with your own text.
-                </p>
+              <div className="px-4">
+                <Dropzone handleDrop={handleDrop} />
               </div>
             )}
-            <div
-              className={clsx({
-                'lg:grid lg:grid-cols-2': originalCroppedImageData,
-              })}
-            >
-              <div
-                className={clsx('px-4 md:px-8', {
-                  'md:grid md:grid-cols-2 lg:grid-cols-[1.6fr_1fr] md:gap-6 lg:flex lg:flex-col':
-                    originalCroppedImageData,
-                })}
-              >
-                <div>
-                  {imageData && (
-                    <div className="mb-10 lg:mb-0">
-                      <Cropper
-                        imageData={imageData}
-                        setCroppedImageData={setOriginalCroppedImageData}
-                      />
+            {imageData && (
+              <div className="px-4">
+                <Cropper
+                  imageData={imageData}
+                  setCroppedImageData={setOriginalCroppedImageData}
+                />
+              </div>
+            )}
+          </div>
+          {isLoading && (
+            <div className="flex items-center justify-center py-20">
+              <LoadingIndicator />
+            </div>
+          )}
+          {originalCroppedImageData && (
+            <div className="px-4 max-w-2xl mx-auto">
+              <div className="border border-primary-brand-600 rounded-md">
+                <div className="px-4 py-5 border-b border-primary-brand-600 rounded-md md:flex md:items-between md:gap-8">
+                  <Preview
+                    croppedImageData={originalCroppedImageData}
+                    canvasRef={canvasRef}
+                  />
+                  <div className="md:flex md:justify-center md:flex-col">
+                    <div className="mb-4">
+                      <TextForm />
                     </div>
-                  )}
-                </div>
-                {originalCroppedImageData && (
-                  <div className="flex flex-col gap-y-3">
-                    <div className="pb-5">
-                      <div className="mb-10 lg:mb-5">
-                        <TextForm />
-                      </div>
+                    <div className="flex flex-wrap items-end gap-2">
                       <ColourForm />
-                    </div>
-                    <div className="pb-5 md:hidden">
                       <Presets />
                     </div>
                   </div>
-                )}
-              </div>
-              <div
-                className={clsx('px-4', {
-                  'md:grid md:grid-cols-2 md:gap-x-10 lg:flex lg:flex-col':
-                    originalCroppedImageData,
-                })}
-              >
-                <div>
-                  {originalCroppedImageData && (
-                    <div className="px-4 md:px-8 pb-2 pt-8 lg:pt-0">
-                      <Preview croppedImageData={originalCroppedImageData} />
-                      <span className="flex justify-center w-full text-black-brand-100 mt-1">
-                        or
-                      </span>
-                    </div>
-                  )}
-                  <div
-                    className={clsx('mb-6 md:px-4', {
-                      'lg:max-w-[300px] lg:mx-auto lg:px-0':
-                        originalCroppedImageData,
-                    })}
-                  >
-                    <div>
-                      <Dropzone
-                        handleDrop={handleDrop}
-                        hasFile={Boolean(imageData)}
-                      />
-                    </div>
-                  </div>
                 </div>
-                {originalCroppedImageData && (
-                  <div className="hidden md:block">
-                    <Presets />
-                  </div>
-                )}
+                <div className="px-4 py-5 flex justify-start gap-2 md:justify-end">
+                  <Dropzone handleDrop={handleDrop} variant="button" />
+                  <Button onClick={downloadImage}>Save image</Button>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      </Layout>
-    </StoreProvider>
+          )}
+        </div>
+        <Footer />
+      </>
+    </Layout>
   );
 };

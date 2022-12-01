@@ -9,7 +9,7 @@ export default defineConfig({
     svgr(),
     VitePluginFonts({
       google: {
-        families: [{ name: 'Montserrat', styles: 'wght@500;600;900' }],
+        families: [{ name: 'Montserrat', styles: 'wght@500;600;800;900' }],
       },
     }),
   ],

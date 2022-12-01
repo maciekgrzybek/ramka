@@ -6,10 +6,10 @@ import { Button } from '../button/button';
 
 type Props = {
   handleDrop: (file: Blob) => void;
-  hasFile?: boolean;
+  variant?: 'default' | 'button';
 };
 
-export const Dropzone = ({ handleDrop, hasFile }: Props) => {
+export const Dropzone = ({ handleDrop, variant = 'default' }: Props) => {
   const [error, setError] = useState<Error | null>(null);
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -38,28 +38,26 @@ export const Dropzone = ({ handleDrop, hasFile }: Props) => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
 
-      {hasFile ? (
-        <Button variant="secondary" fullWidth>
-          Try different image
-        </Button>
+      {variant === 'button' ? (
+        <Button variant="secondary">Try different image</Button>
       ) : (
         <div
           className={clsx(
-            'ease-in-out duration-200 border-dashed border-2 border-primary-brand-200 rounded-2xl flex justify-center items-center bg-primary-brand-100 flex-col w-full h-72 shadow-lg shadow-primary-brand-200',
+            'ease-in-out duration-200 border-dotted border-2 border-primary-brand-800 rounded-2xl flex justify-center items-center bg-primary-brand-100 flex-col w-full h-72 shadow-lg shadow-primary-brand-200',
             { 'scale-105 shadow-2xl': isDragActive }
           )}
         >
           {isDragActive ? (
             <BsFillCloudUploadFill className="w-10 h-10 mb-4 text-primary-brand-500" />
           ) : (
-            <BsImage className="w-10 h-10 mb-4 text-primary-brand-500" />
+            <BsImage className="w-10 h-10 mb-4 text-primary-brand-800" />
           )}
 
-          <span className="flex flex-col text-center text-sm">
-            <span className="text-primary-brand-900 font-semibold mb-1">
+          <span className="flex flex-col text-center items-center text-sm">
+            <span className=" text-black-brand-500  mb-1">
               Drag and drop your profile picture
             </span>
-            <span className="text-black-brand-500 mb-2">- or -</span>
+            <span className="text-primary-brand-800 mb-2">- or -</span>
             <Button>Browse files</Button>
           </span>
           {error && (

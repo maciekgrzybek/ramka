@@ -2,10 +2,12 @@ import { HexColour } from '../../types';
 import { debounce } from 'lodash';
 import { useStore } from '../../store/store.context';
 import { ColourInput } from '../colour-input/colour-input';
-import { Label } from '../label/labelt';
+
+import { useId } from 'react';
 
 export const ColourForm = () => {
   const { state, updateColour } = useStore();
+  const id = useId();
 
   const handleUpdate = (newColour: HexColour, index: number) => {
     const newColours = state.colours.map((prevColour, i) =>
@@ -18,11 +20,13 @@ export const ColourForm = () => {
 
   return (
     <fieldset>
-      <Label>Gradient colors</Label>
-      <div className="flex">
+      <label htmlFor={id} className="text-sm mb-2">
+        Colors
+      </label>
+      <div className="flex gap-2">
         {state.colours.map((colour, index) => {
           return (
-            <div key={index} className="relative w-10 h-10">
+            <div key={index} className="">
               <ColourInput
                 colour={colour}
                 handleChange={(e) =>

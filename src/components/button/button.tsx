@@ -7,24 +7,19 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   fullWidth?: boolean;
 };
 
-export const Button = ({
-  children,
-  variant = 'primary',
-  fullWidth = false,
-  ...rest
-}: Props) => {
+export const Button = ({ children, variant = 'primary', ...rest }: Props) => {
   const classNames = {
-    primary: 'bg-primary-brand-900 text-white hover:bg-primary-brand-800',
+    primary:
+      'bg-primary-brand-800 text-primary-brand-100 hover:bg-primary-brand-900',
     secondary:
-      'bg-primary-brand-500 text-primary-brand-900 hover:bg-primary-brand-200',
+      'bg-white text-primary-brand-800 hover:bg-primary-brand-100 border border-primary-brand-600',
   };
 
   return (
     <button
       className={clsx(
-        'rounded-full py-2 px-4 md:px-8 ease-in duration-75',
-        classNames[variant],
-        { 'w-full': fullWidth }
+        'rounded-full py-2 px-3 md:px-5 ease-in duration-75',
+        classNames[variant]
       )}
       type="button"
       {...rest}

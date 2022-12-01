@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import slugify from 'slugify';
 import { exportAsImage } from '../utils/save-to-file';
 
 export const useSaveToFile = (filename: string) => {
@@ -6,7 +7,7 @@ export const useSaveToFile = (filename: string) => {
 
   const downloadImage = () => {
     if (canvasRef.current) {
-      exportAsImage(canvasRef.current, filename);
+      exportAsImage(canvasRef.current, slugify(filename, { lower: true }));
     }
   };
 
