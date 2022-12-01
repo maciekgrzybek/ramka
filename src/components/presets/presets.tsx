@@ -1,7 +1,18 @@
 import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
-import { Button } from '../button/button';
-import { Label } from '../label/labelt';
+
+import { CgColorPicker } from 'react-icons/cg';
+import { offset } from '@floating-ui/react-dom';
+import { useState } from 'react';
+import {
+  useDismiss,
+  useInteractions,
+  useFloating,
+  FloatingPortal,
+  useClick,
+  useListNavigation,
+  autoPlacement,
+} from '@floating-ui/react-dom-interactions';
 
 type Preset = {
   text: string;
@@ -17,33 +28,71 @@ const presets: Preset[] = [
 
 export const Presets = () => {
   const { setPreset } = useStore();
+  const [isOpen, setIsOpen] = useState(false);
+  const { x, y, reference, floating, strategy, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: 'bottom-start',
+    middleware: [offset(5), autoPlacement()],
+  });
 
-  const handleClick = (preset: Preset) => {
+  const dismiss = useDismiss(context, {
+    outsidePress: true,
+  });
+  const click = useClick(context, {});
+  const listNavigation = useListNavigation(context);
+
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [dismiss, click, listNavigation]
+  );
+
+  const changePreset = (preset: Preset) => {
     setPreset(preset.colours, preset.text);
   };
+
   return (
-    <>
-      <Label>Presets</Label>
-      <ul className="flex flex-col gap-y-2">
-        {presets.map((preset) => (
-          <li key={preset.text} className="flex items-center justify-between">
-            <span className="flex items-center gap-1">
-              <>
-                <span className="mr-2 text-black-brand-300">{preset.text}</span>
-                {preset.colours.map((colour) => (
-                  <span
-                    className="w-5 h-5 rounded-full block"
-                    style={{ backgroundColor: colour }}
-                  />
-                ))}
-              </>
-            </span>
-            <Button onClick={() => handleClick(preset)} variant="secondary">
-              Apply preset
-            </Button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <div>
+      <button ref={reference} {...getReferenceProps()}>
+        <span className="grid items-center px-2 py-[6px] rounded-full border border-primary-brand-600 bg-white grid-cols-[min-content_1fr] gap-2 text-sm cursor-pointer hover:shadow-md">
+          <CgColorPicker /> Presets
+        </span>
+      </button>
+      <FloatingPortal>
+        {isOpen && (
+          <div
+            ref={floating}
+            style={{
+              position: strategy,
+              top: y ?? 0,
+              left: x ?? 0,
+              width: 'max-content',
+            }}
+            {...getFloatingProps()}
+          >
+            <ul className="divide-y flex flex-col text-sm top-full bg-white rounded-md border border-primary-brand-600 shadow-lg shadow-primary-brand-200 overflow-hidden">
+              {presets.map((preset) => (
+                <li key={preset.text} className="flex items-center ">
+                  <button
+                    className="flex items-center  px-3 py-2 hover:bg-primary-brand-100 gap-px w-full"
+                    onClick={() => changePreset(preset)}
+                  >
+                    <>
+                      {preset.colours.map((colour) => (
+                        <span
+                          key={`${colour}-${preset.text}`}
+                          className="w-3 h-3 rounded-full block"
+                          style={{ backgroundColor: colour }}
+                        />
+                      ))}
+                      <span className="ml-2">{preset.text}</span>
+                    </>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </FloatingPortal>
+    </div>
   );
 };

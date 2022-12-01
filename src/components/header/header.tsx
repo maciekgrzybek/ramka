@@ -1,6 +1,7 @@
 import { ReactComponent as Logo } from '../../assets/ramka-logo.svg';
 import { AiFillGithub } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
+import { SiBuymeacoffee } from 'react-icons/si';
 
 export const Header = () => {
   return (
@@ -12,9 +13,20 @@ export const Header = () => {
         <ul className="flex items-center">
           <li>
             <a
+              href="https://www.buymeacoffee.com/maciekgrzybek"
+              target="_blank"
+              title="Buy me a coffee"
+              className="hover:text-green-500 transition-colors ease-in duration-75"
+            >
+              <SiBuymeacoffee className="w-5 h-5 mr-2" />
+            </a>
+          </li>
+          <li>
+            <a
               href="https://github.com/maciekgrzybek"
               target="_blank"
-              className="hover:text-primary-brand-900 transition-colors ease-in duration-75"
+              title="Github"
+              className="hover:text-primary-brand-800 transition-colors ease-in duration-75"
             >
               <AiFillGithub className="w-6 h-6 mr-2" />
             </a>
@@ -23,7 +35,8 @@ export const Header = () => {
             <a
               href="https://maciekgrzybek.dev"
               target="_blank"
-              className="hover:text-primary-brand-900 transition-colors ease-in duration-75"
+              title="My website"
+              className="hover:text-primary-brand-800 transition-colors ease-in duration-75"
             >
               <FaUserCircle className="w-6 h-6" />
             </a>
