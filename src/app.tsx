@@ -1,8 +1,7 @@
 import { Header } from './components/header/header';
 import { Layout } from './components/layout/layout';
-import { StoreProvider, useStore } from './store/store.context';
-import ReactGA from 'react-ga';
-import { useAnalyticsAction, useAnalyticsPageView } from './use-analytics';
+import { useStore } from './store/store.context';
+
 import { Dropzone } from './components/dropzone/dropzone';
 import { useUploadedImage } from './hooks/use-uploaded-image';
 import { Presets } from './components/presets/presets';
@@ -17,13 +16,7 @@ import { Button } from './components/button/button';
 import { LoadingIndicator } from './components/loading-indicator/loading-indicator';
 import { Footer } from './components/footer/footer';
 
-const TRACKING_ID = 'G-XJ9RSN3622'; // OUR_TRACKING_ID
-ReactGA.initialize(TRACKING_ID);
-
 export const App = () => {
-  useAnalyticsPageView();
-  const trackEvent = useAnalyticsAction('image');
-
   const { state } = useStore();
   const { readFile, imageData } = useUploadedImage();
   const [originalCroppedImageData, setOriginalCroppedImageData] =
@@ -32,7 +25,7 @@ export const App = () => {
 
   const handleDrop = (file: Blob) => {
     setOriginalCroppedImageData(null);
-    trackEvent('drag_image');
+
     readFile(file);
     setIsLoading(true);
   };
