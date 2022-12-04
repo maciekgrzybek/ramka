@@ -15,7 +15,7 @@ export const LoadingIndicator = () => (
         />
       </svg>
 
-      <div>Loading ...</div>
+      <div>Loading...</div>
     </div>
   </div>
 );

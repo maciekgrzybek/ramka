@@ -1,7 +1,7 @@
 import { HexColour } from '../../types';
 import { debounce } from 'lodash';
 import { useStore } from '../../store/store.context';
-import { ColourInput } from '../colour-input/colour-input';
+import { ColourInput } from './colour-input';
 
 import { useId } from 'react';
 

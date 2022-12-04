@@ -13,8 +13,9 @@ import {
   useListNavigation,
   autoPlacement,
 } from '@floating-ui/react-dom-interactions';
+import { PresetItem } from './preset-item';
 
-type Preset = {
+export type Preset = {
   text: string;
   colours: HexColour[];
 };
@@ -27,7 +28,6 @@ const presets: Preset[] = [
 ];
 
 export const Presets = () => {
-  const { setPreset } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const { x, y, reference, floating, strategy, context } = useFloating({
     open: isOpen,
@@ -42,13 +42,11 @@ export const Presets = () => {
   const click = useClick(context, {});
   const listNavigation = useListNavigation(context);
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [dismiss, click, listNavigation]
-  );
-
-  const changePreset = (preset: Preset) => {
-    setPreset(preset.colours, preset.text);
-  };
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    dismiss,
+    click,
+    listNavigation,
+  ]);
 
   return (
     <div>
@@ -71,23 +69,7 @@ export const Presets = () => {
           >
             <ul className="divide-y flex flex-col text-sm top-full bg-white rounded-md border border-primary-brand-600 shadow-lg shadow-primary-brand-200 overflow-hidden">
               {presets.map((preset) => (
-                <li key={preset.text} className="flex items-center ">
-                  <button
-                    className="flex items-center  px-3 py-2 hover:bg-primary-brand-100 gap-px w-full"
-                    onClick={() => changePreset(preset)}
-                  >
-                    <>
-                      {preset.colours.map((colour) => (
-                        <span
-                          key={`${colour}-${preset.text}`}
-                          className="w-3 h-3 rounded-full block"
-                          style={{ backgroundColor: colour }}
-                        />
-                      ))}
-                      <span className="ml-2">{preset.text}</span>
-                    </>
-                  </button>
-                </li>
+                <PresetItem preset={preset} />
               ))}
             </ul>
           </div>

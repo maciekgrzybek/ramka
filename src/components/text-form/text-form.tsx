@@ -1,13 +1,12 @@
 import { useId } from 'react';
 import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
-import { ColourInput } from '../colour-input/colour-input';
 
 export const TextForm = () => {
   const { state, changeText, changeTextColour } = useStore();
   const textInputId = useId();
   const colorInputId = useId();
-  
+
   return (
     <fieldset>
       <legend className="mb-3 block text-xl md:text-lg text-black-brand-300 font-semibold">
