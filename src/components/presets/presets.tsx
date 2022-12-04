@@ -1,4 +1,3 @@
-import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
 
 import { CgColorPicker } from 'react-icons/cg';
@@ -14,6 +13,7 @@ import {
   autoPlacement,
 } from '@floating-ui/react-dom-interactions';
 import { PresetItem } from './preset-item';
+import { useAnalyticsAction } from '../../use-analytics';
 
 export type Preset = {
   text: string;
@@ -28,6 +28,7 @@ const presets: Preset[] = [
 ];
 
 export const Presets = () => {
+  const trackEvent = useAnalyticsAction('preset');
   const [isOpen, setIsOpen] = useState(false);
   const { x, y, reference, floating, strategy, context } = useFloating({
     open: isOpen,
@@ -50,7 +51,10 @@ export const Presets = () => {
 
   return (
     <div>
-      <button ref={reference} {...getReferenceProps()}>
+      <button
+        ref={reference}
+        {...getReferenceProps({ onClick: () => trackEvent('open_presets') })}
+      >
         <span className="grid items-center px-2 py-[6px] rounded-full border border-primary-brand-600 bg-white grid-cols-[min-content_1fr] gap-2 text-sm cursor-pointer hover:shadow-md">
           <CgColorPicker /> Presets
         </span>
@@ -69,7 +73,7 @@ export const Presets = () => {
           >
             <ul className="divide-y flex flex-col text-sm top-full bg-white rounded-md border border-primary-brand-600 shadow-lg shadow-primary-brand-200 overflow-hidden">
               {presets.map((preset) => (
-                <PresetItem preset={preset} />
+                <PresetItem key={preset.text} preset={preset} />
               ))}
             </ul>
           </div>

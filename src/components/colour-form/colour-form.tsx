@@ -4,10 +4,12 @@ import { useStore } from '../../store/store.context';
 import { ColourInput } from './colour-input';
 
 import { useId } from 'react';
+import { useAnalyticsAction } from '../../use-analytics';
 
 export const ColourForm = () => {
   const { state, updateColour } = useStore();
   const id = useId();
+  const trackEvent = useAnalyticsAction('colour');
 
   const handleUpdate = (newColour: HexColour, index: number) => {
     const newColours = state.colours.map((prevColour, i) =>
@@ -29,9 +31,10 @@ export const ColourForm = () => {
             <div key={index} className="">
               <ColourInput
                 colour={colour}
-                handleChange={(e) =>
-                  debouncedUpdate(e.target.value as HexColour, index)
-                }
+                handleChange={(e) => {
+                  trackEvent('select_colour');
+                  return debouncedUpdate(e.target.value as HexColour, index);
+                }}
               />
             </div>
           );

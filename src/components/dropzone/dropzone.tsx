@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useDropzone } from 'react-dropzone';
 import { BsImage, BsFillCloudUploadFill } from 'react-icons/bs';
 import { Button } from '../button/button';
+import { useAnalyticsAction } from '../../use-analytics';
 
 type Props = {
   handleDrop: (file: Blob) => void;
@@ -11,13 +12,25 @@ type Props = {
 
 export const Dropzone = ({ handleDrop, variant = 'default' }: Props) => {
   const [error, setError] = useState<Error | null>(null);
+  const trackEvent = useAnalyticsAction('image');
+  const isReDrop = variant === 'button';
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       handleDrop(acceptedFiles[0]);
       clearError();
+      handleGaDropAction();
     },
     [handleDrop]
   );
+
+  const handleGaDropAction = () => {
+    if (isReDrop) {
+      trackEvent('re_select_image');
+    } else {
+      trackEvent('select_image');
+    }
+  };
 
   const handleError = (error: Error) => setError(error);
   const clearError = () => setError(null);
@@ -25,7 +38,6 @@ export const Dropzone = ({ handleDrop, variant = 'default' }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     onError: handleError,
-
     multiple: false,
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],

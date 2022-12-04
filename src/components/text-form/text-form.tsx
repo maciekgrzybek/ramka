@@ -1,11 +1,26 @@
-import { useId } from 'react';
+import { ChangeEvent, useId } from 'react';
 import { useStore } from '../../store/store.context';
 import { HexColour } from '../../types';
+import { useAnalyticsAction } from '../../use-analytics';
 
 export const TextForm = () => {
   const { state, changeText, changeTextColour } = useStore();
+  const trackEvent = useAnalyticsAction('text');
   const textInputId = useId();
   const colorInputId = useId();
+
+  const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+    changeText(event.target.value);
+  };
+
+  const handleTextFocus = () => {
+    trackEvent('change_text');
+  };
+
+  const handleTextColourChange = (event: ChangeEvent<HTMLInputElement>) => {
+    trackEvent('change_text_colour');
+    changeTextColour(event.target.value as HexColour);
+  };
 
   return (
     <fieldset>
@@ -20,7 +35,8 @@ export const TextForm = () => {
           <input
             value={state.text}
             className="w-full rounded-full border border-primary-brand-600 bg-white py-1 px-4 pr-10 text-base font-small text-black-brand-100 outline-none focus:border-primary-brand-500 focus:shadow-md focus:text-black-brand-300"
-            onChange={(e) => changeText(e.target.value)}
+            onChange={handleTextChange}
+            onFocus={handleTextFocus}
             type="text"
             id={textInputId}
           />
@@ -35,7 +51,7 @@ export const TextForm = () => {
           <input
             type="color"
             value={state.textColour}
-            onChange={(e) => changeTextColour(e.target.value as HexColour)}
+            onChange={handleTextColourChange}
             className="sr-only peer"
             id={colorInputId}
           />

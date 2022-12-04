@@ -1,8 +1,7 @@
 import { Header } from './components/header/header';
 import { Layout } from './components/layout/layout';
-import { StoreProvider, useStore } from './store/store.context';
-import ReactGA from 'react-ga';
-import { useAnalyticsAction, useAnalyticsPageView } from './use-analytics';
+import { useStore } from './store/store.context';
+import { useAnalyticsPageView } from './use-analytics';
 import { Dropzone } from './components/dropzone/dropzone';
 import { useUploadedImage } from './hooks/use-uploaded-image';
 import { Presets } from './components/presets/presets';
@@ -16,13 +15,15 @@ import { useSaveToFile } from './hooks/use-save-to-file';
 import { Button } from './components/button/button';
 import { LoadingIndicator } from './components/loading-indicator/loading-indicator';
 import { Footer } from './components/footer/footer';
+import ReactGA from 'react-ga4';
+import TagManager from 'react-gtm-module';
 
-const TRACKING_ID = 'G-XJ9RSN3622'; // OUR_TRACKING_ID
+const TRACKING_ID = 'G-7K91L9964K';
 ReactGA.initialize(TRACKING_ID);
+TagManager.initialize({ gtmId: TRACKING_ID });
 
 export const App = () => {
   useAnalyticsPageView();
-  const trackEvent = useAnalyticsAction('image');
 
   const { state } = useStore();
   const { readFile, imageData } = useUploadedImage();
@@ -32,7 +33,6 @@ export const App = () => {
 
   const handleDrop = (file: Blob) => {
     setOriginalCroppedImageData(null);
-    trackEvent('drag_image');
     readFile(file);
     setIsLoading(true);
   };

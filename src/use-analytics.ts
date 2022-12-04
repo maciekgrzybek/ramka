@@ -1,29 +1,24 @@
 import { useEffect } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 type EventCategory = 'image' | 'colour' | 'text' | 'preset';
 
-type ImageAction =
-  | 'drag_image'
-  | 'select_image'
-  | 're_drag_image'
-  | 're_select_image'
-  | 'move_image'
-  | 'zoom_image';
-type ColourAction = 'select_colour_1' | 'select_colour_2';
-type TextAction = 'change_text';
+type ImageAction = 'select_image' | 're_select_image' | 'save_image';
+type ColourAction = 'select_colour';
+type TextAction = 'change_text' | 'change_text_colour';
+type PresetAction = 'open_presets' | 'select_preset';
 
-type EventAction = ImageAction | ColourAction | TextAction;
+type EventAction = ImageAction | ColourAction | TextAction | PresetAction;
 
 export const useAnalyticsAction = (category: EventCategory) => {
-  const eventTracker = (action: EventAction, label?: string) => {
-    ReactGA.event({ category, action, label });
+  const eventTracker = (action: EventAction, params?: any) => {
+    ReactGA.event({ category, action }, params);
   };
   return eventTracker;
 };
 
 export const useAnalyticsPageView = () => {
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.send('pageview');
   }, []);
 };
