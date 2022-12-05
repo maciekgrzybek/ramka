@@ -2,12 +2,15 @@ import { ReactComponent as Logo } from '../../assets/ramka-logo.svg';
 import { AiFillGithub } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { SiBuymeacoffee } from 'react-icons/si';
+import { Link } from '@tanstack/react-router';
 
 export const Header = () => {
   return (
     <header className="flex justify-between items-center pb-5 border-b border-primary-brand-200 p-4 md:px-8 mb-10">
       <div>
-        <Logo width={80} />
+        <Link to="/">
+          <Logo width={80} />
+        </Link>
       </div>
       <div>
         <ul className="flex items-center">

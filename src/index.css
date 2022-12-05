@@ -12,3 +12,23 @@ body {
   @apply bg-primary-brand-100;
   @apply text-black-brand-500;
 }
+
+.plain-text h1 {
+  @apply text-3xl font-semibold my-5;
+}
+
+.plain-text h2 {
+  @apply text-2xl font-semibold my-5;
+}
+
+.plain-text h3 {
+  @apply text-xl font-semibold my-5;
+}
+
+.plain-text p {
+  @apply mb-3;
+}
+
+.plain-text ul {
+  @apply list-disc pl-6 mb-4;
+}

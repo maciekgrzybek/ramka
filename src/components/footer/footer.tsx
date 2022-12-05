@@ -1,7 +1,9 @@
 import { SiBuymeacoffee } from 'react-icons/si';
+import { Link } from '@tanstack/react-router';
 
 export const Footer = () => (
   <footer className="text-primary-brand-800 text-xs text-center mb-5 mt-10 px-4 flex flex-col items-center">
+    <hr className="my-8 h-px bg-primary-brand-200 border-0 w-full max-w-2xl" />
     <span className="mb-3">
       made with ❤️ &nbsp; by{' '}
       <a
@@ -32,5 +34,16 @@ export const Footer = () => (
       <SiBuymeacoffee className="w-4 h-4 mr-2" />
       Buy me a coffee.
     </a>
+    <hr className="mt-8 mb-4 h-px bg-primary-brand-200 border-0 w-full max-w-2xl" />
+    <div>
+      <menu>
+        <Link
+          to="/privacy-policy"
+          className="hover:text-primary-brand-900  text-xs"
+        >
+          Privacy Policy
+        </Link>
+      </menu>
+    </div>
   </footer>
 );

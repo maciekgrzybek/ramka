@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         'primary-brand': {
           100: '#FEF7F1',
+          200: '#ffe7d2',
           600: '#DCBB9D',
           800: '#BA815E',
           900: '#956143',
