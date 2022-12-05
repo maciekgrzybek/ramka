@@ -1,4 +1,5 @@
 import { useStore } from '../../store/store.context';
+import { useAnalyticsAction } from '../../use-analytics';
 import { Preset } from './presets';
 
 type Props = {
@@ -7,12 +8,14 @@ type Props = {
 
 export const PresetItem = ({ preset }: Props) => {
   const { setPreset } = useStore();
-  const changePreset = (preset: Preset) => {
+  const trackEvent = useAnalyticsAction('preset');
+  function changePreset(preset: Preset) {
     setPreset(preset.colours, preset.text);
-  };
+    trackEvent('select_preset', preset);
+  }
 
   return (
-    <li key={preset.text} className="flex items-center ">
+    <li className="flex items-center ">
       <button
         className="flex items-center  px-3 py-2 hover:bg-primary-brand-100 gap-px w-full"
         onClick={() => changePreset(preset)}
