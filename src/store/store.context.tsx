@@ -10,7 +10,7 @@ import { mainReducer } from './store.reducer';
 import { Action, StoreState } from './store.types';
 
 const initialState: StoreState = {
-  text: '#Looking for job',
+  text: '#Not Looking for job',
   textColour: '#000',
   colours: ['#e66465', '#f6b73c'],
 };
