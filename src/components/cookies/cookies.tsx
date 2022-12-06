@@ -25,7 +25,7 @@ export const Cookies = () => {
 
   if (!cookiesStatus) {
     return (
-      <div className="fixed bottom left-0 bottom-0 w-full bg-primary-brand-600 text-xs text-white p-4 md:grid md:grid-cols-[2.3fr_1fr] md:gap-3 md:items-center">
+      <div className="fixed bottom left-0 bottom-0 w-full bg-primary-brand-600 text-xs text-white p-4 md:grid md:grid-cols-[2.3fr_1fr] md:gap-3 md:items-center z-50">
         <p className="mb-3 md:mb-0">
           We use cookies to measure website performance and provide insight into
           how visitors interact with our website.
