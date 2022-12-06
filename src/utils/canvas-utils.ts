@@ -82,8 +82,12 @@ export const getGradientCanvas = (colours: HexColour[]) => {
 
   if (!context) return null;
 
+  // Chromium browsers have a different starting angle. We need to check
+  // if it's chrome or other browser.
+  // @ts-expect-error
+  const startingAngle = !!window.chrome! ? -Math.PI / 4 : Math.PI / 4;
   const gradient = context.createConicGradient(
-    -Math.PI / 4,
+    startingAngle,
     height / 2,
     width / 2
   );
@@ -115,8 +119,8 @@ export const getGradientCanvas = (colours: HexColour[]) => {
     width / 2,
     height / 2,
     Math.min(width, height) / 2 - lineWidth / 2,
-    Math.PI * 1.8,
-    Math.PI / 11,
+    Math.PI * 3,
+    Math.PI,
     true
   );
 
