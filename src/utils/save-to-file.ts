@@ -17,7 +17,11 @@ export const exportAsImage = async (
   element: HTMLDivElement,
   imageFileName: string
 ) => {
-  const canvas = await html2canvas(element, { backgroundColor: null });
+  const canvas = await html2canvas(element, {
+    backgroundColor: null,
+    windowWidth: 4000,
+    scale: 5,
+  });
   const image = canvas.toDataURL('image/png', 1.0);
   downloadImage(image, imageFileName);
 };
