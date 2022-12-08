@@ -7,6 +7,8 @@ type Props = {
   canvasRef: React.RefObject<HTMLDivElement>;
 };
 
+const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 export const Preview = ({ croppedImageData, canvasRef }: Props) => {
   const {
     state: { colours, text, textColour },
@@ -39,9 +41,11 @@ export const Preview = ({ croppedImageData, canvasRef }: Props) => {
               d="M150 0C67.157 0 0 67.157 0 150c0 82.787 67.213 150 150 150 82.843 0 150-67.157 150-150"
               fill="none"
               id="curve"
-              transform="translate(40 40)"
+              transform={
+                isFirefox ? `translate(35 35) scale(1.05)` : `translate(40 40)`
+              }
             />
-            <text startOffset="50%">
+            <text startOffset="50%" fontFamily="Arial">
               <textPath
                 alignmentBaseline="middle"
                 xlinkHref="#curve"
