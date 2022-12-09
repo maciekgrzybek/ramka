@@ -31,25 +31,27 @@ export const Preview = ({ croppedImageData, canvasRef }: Props) => {
       >
         <div className="absolute w-full h-full flex items-end z-20 tracking-widest">
           <svg
-            viewBox="0 0 380 380"
+            viewBox="0 0 200 200"
             xmlns="http://www.w3.org/2000/svg"
             xmlSpace="preserve"
             width="100%"
             height="100%"
           >
             <path
-              d="M150 0C67.157 0 0 67.157 0 150c0 82.787 67.213 150 150 150 82.843 0 150-67.157 150-150"
+              d="M86.359.935C36.869 7.749 0 50.043 0 100c0 55.192 44.808 100 100 100 49.957 0 92.251-36.869 99.065-86.359"
               fill="none"
               id="curve"
               transform={
-                isFirefox ? `translate(35 35) scale(1.05)` : `translate(40 40)`
+                isFirefox
+                  ? 'matrix(.90725 0 0 .90725 9.231 9.318)'
+                  : 'matrix(.85653 0 0 .85653 14.28 14.414)'
               }
             />
-            <text startOffset="50%" fontFamily="Arial">
+            <text startOffset="50%" fontFamily="Arial" fontWeight="bold">
               <textPath
                 alignmentBaseline="middle"
                 xlinkHref="#curve"
-                fontSize="2rem"
+                fontSize="1.05rem"
                 startOffset="50%"
                 textAnchor="middle"
                 fill={textColour}

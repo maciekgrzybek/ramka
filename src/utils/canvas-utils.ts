@@ -118,7 +118,7 @@ export const getGradientCanvas = (colours: HexColour[]) => {
   context.arc(
     width / 2,
     height / 2,
-    Math.min(width, height) / 2 - lineWidth / 2,
+    Math.min(width, height) / 1.84 - lineWidth / 2, // thickness of the gradient
     Math.PI * 3,
     Math.PI,
     true
