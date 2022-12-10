@@ -1,6 +1,7 @@
 import { getGradientCanvas, getRoundedCanvas } from '../../utils/canvas-utils';
 import { useMemo } from 'react';
 import { useStore } from '../../store/store.context';
+import clsx from 'clsx';
 
 type Props = {
   croppedImageData: HTMLCanvasElement;
@@ -11,7 +12,7 @@ const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 export const Preview = ({ croppedImageData, canvasRef }: Props) => {
   const {
-    state: { colours, text, textColour },
+    state: { colours, text, textColour, isUppercase },
   } = useStore();
 
   const canvasSrc = useMemo(
@@ -29,7 +30,12 @@ export const Preview = ({ croppedImageData, canvasRef }: Props) => {
         className="relative w-full max-w-[200px] rounded-full overflow-hidden mb-6 md:mb-0"
         ref={canvasRef}
       >
-        <div className="absolute w-full h-full flex items-end z-20 tracking-widest">
+        <div
+          className={clsx(
+            'absolute w-full h-full flex items-end z-20 tracking-widest',
+            { uppercase: isUppercase }
+          )}
+        >
           <svg
             viewBox="0 0 200 200"
             xmlns="http://www.w3.org/2000/svg"

@@ -23,8 +23,8 @@ export type Preset = {
 const presets: Preset[] = [
   { text: 'Happy Where I Am', colours: ['#21bf73', '#0d6e5c'] },
   { text: 'Freelance Web Developer', colours: ['#85FFBD', '#FFFB7D'] },
-  { text: 'I HATE MONDAYS', colours: ['#0093E9', '#80D0C7'] },
-  { text: '# Looking For Job', colours: ['#F4D03F', '#16A085'] },
+  { text: 'I Hate Mondays', colours: ['#0093E9', '#80D0C7'] },
+  { text: '#Looking For Job', colours: ['#F4D03F', '#16A085'] },
   { text: 'Marketing Queen', colours: ['#FAD961', '#F76B1C'] },
 ];
 

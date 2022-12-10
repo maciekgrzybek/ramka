@@ -11,8 +11,9 @@ import { Action, StoreState } from './store.types';
 
 const initialState: StoreState = {
   text: '#Not Looking for job',
-  textColour: '#000',
+  textColour: '#fff',
   colours: ['#e66465', '#f6b73c'],
+  isUppercase: true,
 };
 
 const Store = createContext<{
@@ -42,6 +43,12 @@ const useStore = () => {
       return dispatch({
         type: 'CHANGE_PRESET',
         data: { colours: newColours, text },
+      });
+    },
+    changeTextUppercase: (isUppercase: boolean) => {
+      return dispatch({
+        type: 'CHANGE_TEXT_UPPERCASE',
+        data: { isUppercase },
       });
     },
   };

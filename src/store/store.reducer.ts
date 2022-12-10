@@ -23,5 +23,10 @@ export const mainReducer = (state: StoreState, action: Action): StoreState => {
         colours: action.data.colours,
         text: action.data.text,
       };
+    case 'CHANGE_TEXT_UPPERCASE':
+      return {
+        ...state,
+        isUppercase: action.data.isUppercase,
+      };
   }
 };

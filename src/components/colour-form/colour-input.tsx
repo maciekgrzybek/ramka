@@ -22,7 +22,7 @@ export const ColourInput = ({ colour, handleChange }: Props) => {
           id={id}
         />
         <span
-          className="w-5 h-5 flex p-2 rounded-full cursor-pointer focus:outline-none"
+          className="w-5 h-5 flex p-2 rounded-full cursor-pointer focus:outline-none border border-primary-brand-600"
           style={{ backgroundColor: colour }}
         ></span>
         <span className="h-5 w-px bg-primary-brand-600" />
