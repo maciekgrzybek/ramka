@@ -25,12 +25,14 @@ export const Cookies = () => {
 
   if (!cookiesStatus) {
     return (
-      <div className="fixed bottom left-0 bottom-0 w-full bg-primary-brand-600 text-xs text-white p-4 md:grid md:grid-cols-[2.3fr_1fr] md:gap-3 md:items-center z-50">
-        <p className="mb-3 md:mb-0">
-          We use cookies to measure website performance and provide insight into
-          how visitors interact with our website.
+      <div className="text-center fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-4/5 max-w-xl text-sm bg-white flex flex-col justify-center text-black-brand rounded-lg shadow-xl py-20 px-6 md:px-10 z-50">
+        <h2 className="text-3xl font-bold mb-4">Cookies 🍪</h2>
+        <p className="mb-6">
+          We use cookies to measure the performance and provide insight into how
+          visitors interact with RAMKA. <br />
+          <strong>Do not worry though! We just use basic analytics.</strong>
         </p>
-        <div className="flex gap-3 items-center md:justify-end">
+        <div className="flex gap-3 items-center flex-col md:flex-row md:self-center md:gap-6">
           <Button onClick={handleAccept}>I'm okay with that</Button>
           <Link to="/privacy-policy">More info</Link>
         </div>

@@ -18,7 +18,7 @@ export const Button = ({ children, variant = 'primary', ...rest }: Props) => {
   return (
     <button
       className={clsx(
-        'rounded-full py-2 px-3 md:px-5 ease-in duration-75',
+        'rounded-full py-2 px-5 md:px-5 ease-in duration-75',
         classNames[variant]
       )}
       type="button"
